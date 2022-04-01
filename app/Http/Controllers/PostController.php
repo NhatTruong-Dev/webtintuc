@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostCreated;
+use App\Models\Category;
 use App\Models\Post;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Hash;
 
 class PostController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:xem-bai-viet');
+        $this->middleware('permission:them-bai-viet', ['only' => ['create','store']]);
+        $this->middleware('permission:sua-bai-viet', ['only' => ['edit','update']]);
+        $this->middleware('permission:xoa-bai-viet', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +25,8 @@ class PostController extends Controller
      */
     public function index()
     {
+
         $posts=Post::paginate(5);
-
-
         return view('post.index')->with('posts',$posts);
     }
 
@@ -28,7 +37,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create');
+
+
+        $categories=Category::all();
+        return view('post.create',compact('categories'));
+        Toastr::success('Thêm thành công','Success');
     }
 
     /**
@@ -39,6 +52,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $input = $request->all();
         if ($image = $request->file('image')) {
             $destinationPath = 'image/';
@@ -67,7 +81,11 @@ class PostController extends Controller
         $request->validate($rules,$message);
 
         Post::create($input);
-        return redirect('post')->with('flash_message', 'Post Addedd!');
+
+        $data=['title'=>$input['title'],'author'=>auth()->user()->name];
+        event(new PostCreated($data));
+        $categories=Category::all();
+        return redirect()->route('post.index',compact('categories'))->with('success', 'Thêm bài viết thành công');
     }
 
     /**
@@ -78,7 +96,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
+
         $post = Post::find($id);
+
         return view('post.show')->with('posts', $post);
     }
 
@@ -90,8 +110,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+
         $post = Post::find($id);
-        return view('post.edit')->with('posts', $post);
+        $categories=Category::all();
+        return view('post.edit',compact('categories'))->with('posts', $post);
     }
 
     /**
@@ -103,6 +125,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $post = Post::find($id);
         $input = $request->all();
         if ($image = $request->file('image')) {
@@ -113,8 +136,9 @@ class PostController extends Controller
         }else{
             unset($input['image']);
         }
+
         $post->update($input);
-        return redirect('post')->with('flash_message', 'Post Updat  ed!');
+        return redirect()->route('post.index')->with('success', 'Sừa bài viết thành công');
     }
 
     /**
@@ -125,9 +149,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+
+
         Post::destroy($id);
-        return redirect('post')->with('flash_message', 'Post deleted!');
+        return redirect()->route('post.index')->with('success', 'Xóa bài viết thành công');
     }
-
-
 }

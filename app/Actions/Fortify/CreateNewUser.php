@@ -15,7 +15,7 @@ class CreateNewUser implements CreatesNewUsers
     use PasswordValidationRules;
 
     /**
-     * Create a newly registered user.
+     * Create a newly registered users.
      *
      * @param  array  $input
      * @return \App\Models\User
@@ -41,7 +41,7 @@ class CreateNewUser implements CreatesNewUsers
     }
 
     /**
-     * Create a personal team for the user.
+     * Create a personal team for the users.
      *
      * @param  \App\Models\User  $user
      * @return void

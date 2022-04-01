@@ -53,7 +53,7 @@ class InviteTeamMember implements InvitesTeamMembers
             'email' => $email,
             'role' => $role,
         ], $this->rules($team), [
-            'email.unique' => __('This user has already been invited to the team.'),
+            'email.unique' => __('This users has already been invited to the team.'),
         ])->after(
             $this->ensureUserIsNotAlreadyOnTeam($team, $email)
         )->validateWithBag('addTeamMember');
@@ -78,7 +78,7 @@ class InviteTeamMember implements InvitesTeamMembers
     }
 
     /**
-     * Ensure that the user is not already on the team.
+     * Ensure that the users is not already on the team.
      *
      * @param  mixed  $team
      * @param  string  $email
@@ -90,7 +90,7 @@ class InviteTeamMember implements InvitesTeamMembers
             $validator->errors()->addIf(
                 $team->hasUserWithEmail($email),
                 'email',
-                __('This user already belongs to the team.')
+                __('This users already belongs to the team.')
             );
         };
     }

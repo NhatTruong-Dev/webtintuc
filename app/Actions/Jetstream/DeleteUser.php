@@ -27,7 +27,7 @@ class DeleteUser implements DeletesUsers
     }
 
     /**
-     * Delete the given user.
+     * Delete the given users.
      *
      * @param  mixed  $user
      * @return void
@@ -43,7 +43,7 @@ class DeleteUser implements DeletesUsers
     }
 
     /**
-     * Delete the teams and team associations attached to the user.
+     * Delete the teams and team associations attached to the users.
      *
      * @param  mixed  $user
      * @return void

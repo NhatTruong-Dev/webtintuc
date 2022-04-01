@@ -15,6 +15,7 @@
     <link href="{{ asset("adminmart-master/assets/extra-libs/c3/c3.min.css") }}" rel="stylesheet">
     <link href="{{ asset("adminmart-master/assets/libs/chartist/dist/chartist.min.css") }}" rel="stylesheet">
     <link href="{{ asset("adminmart-master/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css") }}" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     <!-- Custom CSS -->
     <link href="{{ asset("adminmart-master/dist/css/style.min.css") }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -223,7 +224,7 @@
                                  width="40">
                             <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                     class="text-dark">Nhật Trường</span> <i data-feather="chevron-down"
-                                                                          class="svg-icon"></i></span>
+                                                                            class="svg-icon"></i></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                             <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
@@ -267,28 +268,25 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="http://127.0.0.1:8000/admin"
+
+                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{route('dashboard')}}"
                                                  aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                 class="hide-menu">Dashboard</span></a></li>
-                    <li class="list-divider"></li>
+
+
                     <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
+
 
                     <li class="sidebar-item"> <a class="sidebar-link" href="{{route('category.index')}}"
                                                  aria-expanded="false"><i data-feather="tag" class="feather-icon"></i><span
                                 class="hide-menu">Category
                                 </span></a>
                     </li>
+
                     <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{route('post.index')}}"
                                                  aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
                                 class="hide-menu">Post</span></a></li>
-                    <li class="list-divider"></li>
-                    <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="docs/docs.html"
-                                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                class="hide-menu">Documentation</span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="authentication-login1.html"
-                                                 aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span
-                                class="hide-menu">Logout</span></a></li>
+
                 </ul>
             </nav>
             <!-- End Sidebar navigation -->
@@ -312,10 +310,12 @@
         <!-- ============================================================== -->
         <!-- End footer -->
         <!-- ============================================================== -->
+
     </div>
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
+
 </div>
 <!-- ============================================================== -->
 <!-- End Wrapper -->
@@ -327,6 +327,8 @@
 <script src="{{ asset("adminmart-master/assets/libs/jquery/dist/jquery.min.js") }}"></script>
 <script src="{{ asset("adminmart-master/assets/libs/popper.js/dist/umd/popper.min.") }}"></script>
 <script src="{{ asset("adminmart-master/assets/libs/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
 <!-- apps -->
 <!-- apps -->
 <script src="{{ asset("adminmart-master/dist/js/app-style-switcher.js") }}"></script>
@@ -343,7 +345,7 @@
 <script src="{{ asset("adminmart-master/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js") }}"></script>
 <script src="{{ asset("adminmart-master/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js") }}"></script>
 <script src="{{ asset("adminmart-master/dist/js/pages/dashboards/dashboard1.min.js") }}"></script>
-
+{!! Toastr::message() !!}
 
 
 

@@ -1,18 +1,18 @@
-@extends('post.layout')
+@extends('layout')
 @section('content')
     <div class="card">
         <div class="card-header">Contactus Page</div>
         <div class="card-body">
             <form action="{{ url('post') }}" method="post" enctype="multipart/form-data">
-                {!! csrf_field() !!}
-                <div style="margin-bottom:10px"><label>Title</label></br>
+                @csrf
+                <div style="margin-bottom:10px"><label>Tiêu đề</label></br>
                     <input type="text" name="title" id="title" class="form-control"></br>
                     @error('title')
                     <span style="color: red;margin-left:10px !important;"> {{$message}}</span><br/>
                     @enderror
                 </div>
 
-                <div style="margin-bottom:10px"><label>Image</label></br>
+                <div style="margin-bottom:10px"><label>Hình ảnh</label></br>
                     <input type="file" name="image" id="image" class="form-control"></br>
                     @error('image')
                     <span style="color: red;margin-left:10px !important;"> {{$message}}</span><br/>
@@ -20,7 +20,7 @@
                 </div>
 
                 <div style="margin-bottom:10px">
-                    <label>Title_image</label></br>
+                    <label>Tiêu đề hình ảnh</label></br>
                     <input type="text" name="title_image" id="title_image" class="form-control"></br>
                     @error('title_image')
                     <span style="color: red;margin-left:10px !important;"> {{$message}}</span><br/>
@@ -28,7 +28,7 @@
                 </div>
 
                 <div style="margin-bottom:10px">
-                    <label>Sub_title</label></br>
+                    <label>Phụ đề</label></br>
                     <input type="text" name="sub_title" id="sub_title" class="form-control"></br>
                     @error('sub_title')
                     <span style="color: red;margin-left:10px !important;"> {{$message}}</span><br/>
@@ -36,15 +36,20 @@
                 </div>
 
                 <div style="margin-bottom:10px">
-                    <label>Category_id</label></br>
-                    <input type="text" name="category_id" id="category_id" class="form-control"></br>
+                    <label>Danh mục</label></br>
+                    <select name="category_id" class="form-control">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+
+                    </select>
                     @error('category_id')
                     <span style="color: red;margin-left:10px !important;"> {{$message}}</span><br/>
                     @enderror
                 </div>
 
                 <div style="margin-bottom:10px">
-                    <label>Details</label></br>
+                    <label>Nội dung</label></br>
                     <textarea id="editor2" name="details"></textarea><br/>
                     @error('details')
                     <span style="color: red;margin-left:10px !important;"> {{$message}}</span><br/>

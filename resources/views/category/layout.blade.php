@@ -22,6 +22,18 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
 
@@ -66,11 +78,11 @@
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
-                                <!-- dark Logo text -->
-                                Dashboard Admin
-                            <!-- Light Logo text -->
-                                <img src="{{ asset("assets/images/logo-light-text.png")}}" class="light-logo"
-                                     alt="homepage"/>
+                                <x-jet-nav-link href="{{ route('dashboard') }}"
+                                                :active="request()->routeIs('dashboard')"
+                                                style="border:none;color:#5f76e8;font-size:21px;margin-right:-30px">
+                                                {{ __('Dashboard Admin') }}
+                                            </x-jet-nav-link>
                             </span>
                     </a>
                 </div>
@@ -99,65 +111,20 @@
                            id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
                             <span><i data-feather="bell" class="svg-icon"></i></span>
-                            <span class="badge badge-primary notify-no rounded-circle">5</span>
+                            <span class="badge badge-primary notify-no rounded-circle"
+                                  style="width:1px;height:1px;background-color: red;margin-top:8px">.</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
                             <ul class="list-style-none">
                                 <li>
-                                    <div class="message-center notifications position-relative">
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)"
-                                           class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                            <div class="btn btn-danger rounded-circle btn-circle"><i
-                                                    data-feather="airplay" class="text-white"></i></div>
-                                            <div class="w-75 d-inline-block v-middle pl-2">
-                                                <h6 class="message-title mb-0 mt-1">Luanch Admin</h6>
-                                                <span class="font-12 text-nowrap d-block text-muted">Just see
-                                                        the my new
-                                                        admin!</span>
-                                                <span class="font-12 text-nowrap d-block text-muted">9:30 AM</span>
-                                            </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)"
-                                           class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-success text-white rounded-circle btn-circle"><i
-                                                        data-feather="calendar" class="text-white"></i></span>
-                                            <div class="w-75 d-inline-block v-middle pl-2">
-                                                <h6 class="message-title mb-0 mt-1">Event today</h6>
-                                                <span
-                                                    class="font-12 text-nowrap d-block text-muted text-truncate">Just
-                                                        a reminder that you have event</span>
-                                                <span class="font-12 text-nowrap d-block text-muted">9:10 AM</span>
-                                            </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)"
-                                           class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-info rounded-circle btn-circle"><i
-                                                        data-feather="settings" class="text-white"></i></span>
-                                            <div class="w-75 d-inline-block v-middle pl-2">
-                                                <h6 class="message-title mb-0 mt-1">Settings</h6>
-                                                <span
-                                                    class="font-12 text-nowrap d-block text-muted text-truncate">You
-                                                        can customize this template
-                                                        as you want</span>
-                                                <span class="font-12 text-nowrap d-block text-muted">9:08 AM</span>
-                                            </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)"
-                                           class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-primary rounded-circle btn-circle"><i
-                                                        data-feather="box" class="text-white"></i></span>
-                                            <div class="w-75 d-inline-block v-middle pl-2">
-                                                <h6 class="message-title mb-0 mt-1">Pavan kumar</h6> <span
-                                                    class="font-12 text-nowrap d-block text-muted">Just
-                                                        see the my admin!</span>
-                                                <span class="font-12 text-nowrap d-block text-muted">9:02 AM</span>
-                                            </div>
-                                        </a>
+                                    <div class="p-6  border-b border-gray-200" id="notify"
+                                         style="width:540px;height:100%">
+                                        <div class="bg-blue-300 p-3 m-2" style="color: black;padding:15px 5px">
+
+                                        </div>
+
                                     </div>
+
                                 </li>
                                 <li>
                                     <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
@@ -225,39 +192,25 @@
                             <img src="{{ asset("adminmart-master/assets/images/logo-icon.png")}}" alt="user"
                                  class="rounded-circle"
                                  width="40">
-                            <span class="ml-2 d-none d-lg-inline-block"><span>Hello, {{ Auth::user()->name }}</span> <span
+                            <span
+                                class="ml-2 d-none d-lg-inline-block"><span>Hello, {{ Auth::user()->name }}</span> <span
                                     class="text-dark"></span> <i data-feather="chevron-down"
                                                                  class="svg-icon"></i></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
-                                                                                  class="svg-icon mr-2 ml-1"></i>
-                                My Profile</a>
-                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="credit-card"
-                                                                                  class="svg-icon mr-2 ml-1"></i>
-                                My Balance</a>
-                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="mail"
-                                                                                  class="svg-icon mr-2 ml-1"></i>
-                                Inbox</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
-                                                                                  class="svg-icon mr-2 ml-1"></i>
-                                Account Setting</a>
-                            <div class="dropdown-divider"></div>
-                            <form method="POST" action="{{ route('logout') }}">
+
+                            <form method="POST" action="{{ route('logout') }}" style="margin:20px 0">
                                 @csrf
 
                                 <x-jet-dropdown-link style="color: #6c757d" href="{{ route('logout') }}"
                                                      onclick="event.preventDefault();
-                                                this.closest('form').submit();"  >
+                                                this.closest('form').submit();">
                                     <i data-feather="power" class="svg-icon mr-2 ml-1"></i>
                                     {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
 
                             </form>
-                            <div class="dropdown-divider"></div>
-                            <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
-                                    Profile</a></div>
+
                         </div>
                     </li>
                     <!-- ============================================================== -->
@@ -279,28 +232,36 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
-                    <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="http://127.0.0.1:8000/admin"
+                    <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{route('dashboard')}}"
                                                 aria-expanded="false"><i data-feather="home"
                                                                          class="feather-icon"></i><span
-                                class="hide-menu">Admin</span></a></li>
-                    <li class="list-divider"></li>
+                                class="hide-menu">Admin</span></a>
+                        <hr/>
+                    </li>
+
                     <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
 
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://localhost:8000/user"
+                                                aria-expanded="false"><i data-feather="tag"
+                                                                         class="feather-icon"></i><span
+                                class="hide-menu">Quản lí nhân viên
+                                </span></a>
+                    </li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{route('category.index')}}"
                                                 aria-expanded="false"><i data-feather="tag"
                                                                          class="feather-icon"></i><span
-                                class="hide-menu">Category
+                                class="hide-menu">Quản lí danh mục
                                 </span></a>
                     </li>
                     <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{route('post.index')}}"
                                                 aria-expanded="false"><i data-feather="message-square"
                                                                          class="feather-icon"></i><span
-                                class="hide-menu">Post</span></a></li>
+                                class="hide-menu">Quản lí bài viết</span></a></li>
                     <li class="list-divider"></li>
                     <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
-                    <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="docs/docs.html"
+                    <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{ route('profile.show') }}"
                                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                class="hide-menu">Documentation</span></a></li>
+                                class="hide-menu">Cài đặt tài khoản</span></a></li>
 
                 </ul>
             </nav>
@@ -358,6 +319,25 @@
 <script src="{{ asset("adminmart-master/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js") }}"></script>
 <script src="{{ asset("adminmart-master/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js") }}"></script>
 <script src="{{ asset("adminmart-master/dist/js/pages/dashboards/dashboard1.min.js") }}"></script>
+<script>
+
+    function renderHtml(data) {
+        return `<div class="bg-blue-300 p-3 m-2" style="color:black;width:550px;!important;height:60px">
+                            <p >${data}
+                            <a href="" class="p-2 bg-red-400 rounded-lg" style="color:white;width:110px;margin-left:370px;margin-top:-32px;background-color: #F87171">Mark as read </a>
+                            </p>
+                            <hr style="margin-left:-20px"/>
+                      </div>`
+    }
+
+    $.get("http://localhost:8000/api/notify", function (data, status) {
+        let html = ``;
+        data.map(item => {
+            html += renderHtml(item.data)
+        })
+        $('#notify').html(html)
+    });
+</script>
 
 
 </body>

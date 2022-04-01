@@ -54,9 +54,10 @@
 
                 <div id="tintuc" >
                     @foreach($postOther as $item)
-                        <img src="{{ asset('image/'.$item->image) }}"
-                             style="float: left;margin-right:20px;" height="170px" width="270px">
-                        <div class="blog-post">
+
+                        <div class="blog-post" style="height:200px;padding:50px 0" >
+                            <img src="{{ asset('image/'.$item->image) }}"
+                                 style="float: left;margin-right:20px;" height="170px" width="270px">
                             <h4 class="blog-post-title"><a class="text-dark" href="{{ route('home.show', $item->id) }}">{{$item->title }}</a>
                             </h4>
                             <div class="mb-1 text-muted">{{ \Carbon\Carbon::parse($item->created_at)->toDayDateTimeString() }}</div>
@@ -67,10 +68,6 @@
                     @endforeach
                 </div>
 
-                <nav class="blog-pagination">
-                    <a class="btn btn-outline-primary" href="#">Tin cũ</a>
-                    <a class="btn btn-outline-secondary disabled" href="#">Tin mới</a>
-                </nav>
 
             </div><!-- /.blog-main -->
 
@@ -97,6 +94,7 @@
 
         </div><!-- /.row -->
 
+        </div>
     </main><!-- /.container -->
 
 @endsection

@@ -65,7 +65,7 @@
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span class="logo-text">
+                        <span class="logo-text" >
                                 <!-- dark Logo text -->
                                 Dashboard Admin
                             <!-- Light Logo text -->

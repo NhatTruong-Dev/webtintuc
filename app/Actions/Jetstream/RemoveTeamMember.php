@@ -30,7 +30,7 @@ class RemoveTeamMember implements RemovesTeamMembers
     }
 
     /**
-     * Authorize that the user can remove the team member.
+     * Authorize that the users can remove the team member.
      *
      * @param  mixed  $user
      * @param  mixed  $team
@@ -46,7 +46,7 @@ class RemoveTeamMember implements RemovesTeamMembers
     }
 
     /**
-     * Ensure that the currently authenticated user does not own the team.
+     * Ensure that the currently authenticated users does not own the team.
      *
      * @param  mixed  $teamMember
      * @param  mixed  $team

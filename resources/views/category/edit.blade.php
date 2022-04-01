@@ -1,4 +1,4 @@
-@extends('category.layout')
+@extends('layout')
 @section('content')
     <div class="card">
         <div class="card-header">Edit category</div>
@@ -14,13 +14,6 @@
 
                 <input type="submit" value="Update" class="btn btn-success" style="margin-top:20px"></br>
 
-                <script>
-                    ClassicEditor
-                        .create( document.querySelector( '#editor' ) )
-                        .catch( error => {
-                            console.error( error );
-                        });
-                </script>
             </form>
 
         </div>

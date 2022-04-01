@@ -37,7 +37,7 @@
                             <img src="{{ asset('image/' . $postInvolve->image) }}"
                                  style="float: left;margin-right:20px;" height="180px" width="270px">
                             <h3 ><a href="#" style="color:black;"> </a>{!! $postInvolve->title  !!}</h3>
-                                    <p class="blog-post-meta">{{ \Carbon\Carbon::parse($postInvolve->created_at)->toDayDateTimeString() }}  <a href="#">{{$postInvolve->user_id}}</a></p>
+                                    <p class="blog-post-meta">{{ \Carbon\Carbon::parse($postInvolve->created_at)->toDayDateTimeString() }}  <a href="#">{{ @$postInvolve->user_id}}</a></p>
 
                                     <p>{{$postInvolve->sub_title}}</p>
                         </div>
@@ -65,6 +65,49 @@
                     width="300px" height="600px" style="margin-left:5%;" class="anhqc">
             </div>
         </aside><!-- /.blog-sidebar -->
+
+        <div class="container">
+            <h3>Bình luận</h3>
+            <form  method="POST" enctype="multipart/form-data">
+                {!! csrf_field() !!}
+                <div class="form-group">
+                <label for="">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Tên</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Nội dung bình luận</label>
+
+                    <textarea name="contentt" class="form-control"  rows="4" required="required" style="margin:15px 0" placeholder="Nhập nội dung (*)"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" >Gửi bình luận</button>
+
+            </form>
+        </div>
+        <div class="row" style="margin-left:-55px">
+            <div class="col-md-12">
+                <div class="col-md-9">
+                    @foreach($comments as $comment)
+                    <ul style="list-style-type:none">
+                        <li >
+                            <span style="font-weight:bold">{{$comment->name}}</span>
+                            <br/>
+                            <span style="font-weight: lighter;font-style: italic">{{date('d/m/Y',strtotime($comment->created_at))}}</span>
+                        </li>
+                        <li>
+                            {{$comment->content}}
+                        </li>
+                    </ul>
+                    @endforeach
+                </div>
+            </div>
+        </div>
 
     </div><!-- /.row -->
 @endsection

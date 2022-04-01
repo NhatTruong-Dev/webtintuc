@@ -1,4 +1,4 @@
-@extends('post.layout')
+@extends('layout')
 @section('content')
     <div class="card">
         <div class="card-header">Edit post</div>
@@ -8,14 +8,14 @@
                 {!! csrf_field() !!}
                 @method("PATCH")
                 <input type="hidden" name="id" id="id" value="{{$posts->id}}" id="id" />
-                <div style="margin-bottom:10px"><label>Title</label></br>
+                <div style="margin-bottom:10px"><label>Tiêu đề</label></br>
                     <input type="text" name="title" id="title" class="form-control" value="{{$posts->title}}"></br>
                     @error('title')
-                    <span style="color: red;margin-left:10px !important;"> • Vui lòng nhập title !</span><br />
+                    <span style="color: red;margin-left:10px !important;"> • Vui lòng nhập tiêu đề !</span><br />
                     @enderror
                 </div>
 
-                <div style="margin-bottom:10px"><label>Image</label></br>
+                <div style="margin-bottom:10px"><label>Hình ảnh</label></br>
                     <input type="file" name="image" id="image" class="form-control"></br>
                     <img src="/image/{{ $posts->image }}" width="300px">
                     @error('image')
@@ -24,7 +24,7 @@
                 </div>
 
                 <div style="margin-bottom:10px">
-                    <label>Title_image</label></br>
+                    <label>Tiêu đề hình ảnh</label></br>
                     <input type="text" name="title_image" id="title_image" class="form-control" value="{{"$posts->title_image"}}"></br>
                     @error('title_image')
                     <span style="color: red;margin-left:10px"">• Vui lòng nhập lại title_image !</span><br />
@@ -32,7 +32,7 @@
                 </div>
 
                 <div style="margin-bottom:10px">
-                    <label>Sub_title</label></br>
+                    <label>Phụ đề</label></br>
                     <input type="text" name="sub_title" id="sub_title" class="form-control" value="{{"$posts->sub_title"}}"></br>
                     @error('sub_title')
                     <span style="color: red;margin-left:10px"">• Vui lòng nhập lại sub_title !</span><br />
@@ -41,15 +41,20 @@
 
 
                 <div style="margin-bottom:10px">
-                    <label>Category_id</label></br>
-                    <input type="text" name="category_id" id="category_id" class="form-control" value="{{"$posts->category_id"}}"></br>
+                    <label>Danh mục</label></br>
+                    <select name="category_id" class="form-control">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+
+                    </select>
                     @error('category_id')
                     <span style="color: red;margin-left:10px">• Vui lòng nhập lại Category_id !</span><br />
                     @enderror
                 </div>
 
                 <div style="margin-bottom:10px">
-                    <label>Details</label></br>
+                    <label>Nội dung</label></br>
                     <textarea id="editor2" name="details" value="{{"$posts->details"}}"></textarea><br/>
                     @error('details')
                     <span style="color: red;margin-left:10px">• Vui lòng nhập lại details !</span><br />
