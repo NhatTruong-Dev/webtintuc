@@ -185,7 +185,21 @@
                                     class="text-dark"></span> <i data-feather="chevron-down"
                                                                  class="svg-icon"></i></span>
                         </a>
+                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
 
+                            <form method="POST" action="{{ route('logout') }}" style="margin:20px 0">
+                                @csrf
+
+                                <x-jet-dropdown-link style="color: #6c757d" href="{{ route('logout') }}"
+                                                     onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                    <i data-feather="power" class="svg-icon mr-2 ml-1"></i>
+                                    {{ __('Log Out') }}
+                                </x-jet-dropdown-link>
+
+                            </form>
+
+                        </div>
                     </li>
                     <!-- ============================================================== -->
                     <!-- User profile and search -->
@@ -213,20 +227,31 @@
                         <hr/>
                     </li>
 
-                    <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
+                    <li class="nav-small-cap"><span class="hide-menu">Account</span></li>
 
-                    <li class="sidebar-item"><a class="sidebar-link" href="http://localhost:8000/user"
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('users.index')}}"
                                                 aria-expanded="false"><i data-feather="tag"
                                                                          class="feather-icon"></i><span
                                 class="hide-menu">Quản lí nhân viên
                                 </span></a>
                     </li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('category.index')}}"
+
+                    <li class="sidebar-item"><a class="sidebar-link" hhref="{{route('role.index')}}"
                                                 aria-expanded="false"><i data-feather="tag"
                                                                          class="feather-icon"></i><span
-                                class="hide-menu">Quản lí danh mục
+                                class="hide-menu">Quản lí vai trò
                                 </span></a>
                     </li>
+
+                    <li class="nav-small-cap"><span class="hide-menu">News</span></li>
+                    @can('xem-danh-muc')
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{route('category.index')}}"
+                                                    aria-expanded="false"><i data-feather="tag"
+                                                                             class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí danh mục
+                                </span></a>
+                        </li>
+                    @endcan
                     <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{route('post.index')}}"
                                                 aria-expanded="false"><i data-feather="message-square"
                                                                          class="feather-icon"></i><span
@@ -253,8 +278,10 @@
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-    @yield('content')
-    <!-- ============================================================== -->
+        <div class="container">
+            @yield('content')
+        </div>
+        <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->

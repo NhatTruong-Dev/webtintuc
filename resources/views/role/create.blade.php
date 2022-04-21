@@ -1,9 +1,10 @@
 @extends('layout')
 @section('content')
-    <div class="row" >
+    <div class="card"  style="margin-left:-50px">
+    <div class="row" style="margin-left: 50px;margin-top:50px">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Create New Role</h2>
+                <h2>Thêm vai trò mới</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('role.index') }}"> Back</a>
@@ -25,16 +26,16 @@
 
 
     {!! Form::open(array('route' => 'role.store','method'=>'POST')) !!}
-    <div class="row" style="margin-left:50px">
+    <div class="row" style="margin-left:50px;margin-top:50px">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name:</strong>
+            <div class="form-group" style="width:900px">
+                <strong>Tên:</strong>
                 {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Permission:</strong>
+                <strong>Quyền:</strong>
                 <br/>
                 @foreach($permission as $value)
                     <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
@@ -43,12 +44,10 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-xs-3 col-sm-3 col-md-3 ">
+            <button type="submit" class="btn btn-success" style="margin-bottom: 50px">Submit</button>
         </div>
     </div>
     {!! Form::close() !!}
-
-
-    <p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
+    </div>
 @endsection

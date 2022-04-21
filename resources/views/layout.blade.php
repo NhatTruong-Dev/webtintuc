@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset("adminmart-master/assets/images/favicon.png") }}>
-    <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
+
     <!-- Custom CSS -->
     <link href="{{ asset("adminmart-master/assets/extra-libs/c3/c3.min.css") }}" rel="stylesheet">
     <link href="{{ asset("adminmart-master/assets/libs/chartist/dist/chartist.min.css") }}" rel="stylesheet">
@@ -21,8 +21,12 @@
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('ckfinder/ckfinder.js') }}"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
+    <title>Trang quản trị</title>
 </head>
 
 <body>
@@ -162,10 +166,10 @@
                     <!-- ============================================================== -->
                     <li class="nav-item d-none d-md-block">
                         <a class="nav-link" href="javascript:void(0)">
-                            <form>
+                            <form role="form">
                                 <div class="customize-input">
                                     <input class="form-control custom-shadow custom-radius border-0 bg-white"
-                                           type="search" placeholder="Search" aria-label="Search">
+                                           type="search" placeholder="Search..." aria-label="Search" name="search">
                                     <i class="form-control-icon" data-feather="search"></i>
                                 </div>
                             </form>
@@ -220,41 +224,79 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
-                    <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{route('dashboard')}}"
-                                                aria-expanded="false"><i data-feather="home"
-                                                                         class="feather-icon"></i><span
-                                class="hide-menu">Admin</span></a>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link sidebar-link" href="{{route('dashboard')}}"
+                           aria-expanded="false"><i data-feather="home"
+                                                    class="feather-icon"></i><span
+                                class="hide-menu">Trang chủ</span></a>
                         <hr/>
                     </li>
-                    @if(auth()->user()->can('xem-vai-tro'))
-                    <li class="nav-small-cap"><span class="hide-menu">Account</span></li>
 
-                    <li class="sidebar-item"><a class="sidebar-link" href="http://localhost:8000/users"
-                                                aria-expanded="false"><i data-feather="tag"
-                                                                         class="feather-icon"></i><span
-                                class="hide-menu">Quản lí nhân viên
-                                </span></a>
+                    <li class="nav-small-cap">
+                        @can('xem-vai-tro')
+                            <span class="hide-menu">Account</span>
+                        @endcan
                     </li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="http://localhost:8000/role"
-                                                aria-expanded="false"><i data-feather="tag"
-                                                                         class="feather-icon"></i><span
-                                class="hide-menu">Quản lí vai trò
+
+                    <li class="sidebar-item">
+                        @can('xem-vai-tro')
+                            <a class="sidebar-link" href="{{route('users.index')}}"
+                               aria-expanded="false"><i data-feather="tag"
+                                                        class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí nhân viên
                                 </span></a>
+                        @endcan
                     </li>
-                    @endif
+
+                    <li class="sidebar-item">
+                        @can('xem-vai-tro')
+                            <a class="sidebar-link" href="{{route('role.index')}}"
+                               aria-expanded="false"><i data-feather="tag"
+                                                        class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí vai trò
+                                </span></a>
+                        @endcan
+                    </li>
+                    @can('xem-vai-tro')
+                    <hr/>
+                    @endcan
                     <li class="nav-small-cap"><span class="hide-menu">News</span></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('category.index')}}"
-                                                aria-expanded="false"><i data-feather="tag"
-                                                                         class="feather-icon"></i><span
-                                class="hide-menu">Quản lí danh mục
+                    @can('xem-danh-muc')
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{route('category.index')}}"
+                                                    aria-expanded="false"><i data-feather="tag"
+                                                                             class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí danh mục
                                 </span></a>
-                    </li>
-                    <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{route('post.index')}}"
-                                                aria-expanded="false"><i data-feather="message-square"
-                                                                         class="feather-icon"></i><span
+                        </li>
+                    @endcan
+                    @can('xem-chuyen-de')
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{route('thematic.index')}}"
+                                                    aria-expanded="false"><i data-feather="tag"
+                                                                             class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí chuyên đề
+                                </span></a>
+                        </li>
+                    @endcan
+                    <li class="sidebar-item">
+
+                        <a class="sidebar-link sidebar-link" href="{{route('post.index')}}"
+                           aria-expanded="false"><i data-feather="message-square"
+                                                    class="feather-icon"></i><span
                                 class="hide-menu">Quản lí bài viết</span></a></li>
+
+                    @can('xem-vai-tro')
+                        <hr />
+                        <li class="nav-small-cap"><span class="hide-menu">Contact</span></li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{route('contact-adm')}}"
+                                                    aria-expanded="false"><i data-feather="tag"
+                                                                             class="feather-icon"></i><span
+                                    class="hide-menu">Liên hệ tòa soạn
+                                </span></a>
+                        </li>
+                    @endcan
+
                     <li class="list-divider"></li>
-                    <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
+                    <li class="nav-small-cap"><span class="hide-menu">Settings</span></li>
                     <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{ route('profile.show') }}"
                                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
                                 class="hide-menu">Cài đặt tài khoản</span></a></li>
@@ -277,6 +319,7 @@
         <!-- ============================================================== -->
         <div class="container">
             @yield('content')
+
         </div>
         <!-- ============================================================== -->
         <!-- footer -->
@@ -317,6 +360,9 @@
 <script src="{{ asset("adminmart-master/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js") }}"></script>
 <script src="{{ asset("adminmart-master/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js") }}"></script>
 <script src="{{ asset("adminmart-master/dist/js/pages/dashboards/dashboard1.min.js") }}"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
 <script>
 
     function renderHtml(data) {

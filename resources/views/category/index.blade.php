@@ -1,24 +1,18 @@
 @extends('layout')
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-left:100px">
         <div class="row">
             <div class="col-md-9" style="margin-left:-150px">
                 <div class="card">
-                    <div class="card-header">Category</div>
+                    <div class="card-header">Chuyên đề</div>
                     <div class="card-body">
-                        @can('xem-danh-muc')
+                        @can('them-chuyen-de')
                         <a href="{{ url('/category/create') }}" class="btn btn-success btn-sm" title="Add New Contact">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Create Category
+                            <i class="fa fa-plus" aria-hidden="true"></i> Thêm danh mục
                         </a>
                         @endcan
                         <br/>
                         <br/>
-
-                        @if ($message = Session::get('success'))
-                            <div class="alert alert-success" style="height:55px">
-                                <p>{{ $message }}</p>
-                            </div>
-                        @endif
 
                         <div class="table-responsive">
                             <table class="table">

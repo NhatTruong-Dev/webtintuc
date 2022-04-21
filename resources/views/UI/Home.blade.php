@@ -1,100 +1,151 @@
 @extends('UI.index', ['categories' => $categories])
 @section('content')
-
-    <div class="container">
-        <h3 class="pb-3 mb-4 font-italic border-bottom" style="margin-top:20px">
-            Tiêu điểm
-        </h3>
-        <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-            <div class="col-md-6 px-0" style="float: left;">
-                <h1 class="display-4 font-italic">
-                    <a href="{{ route('home.show', $postTop->id) }}" style="color:white">{{ $postTop->title }}</a>
-                </h1>
-                <p class="lead my-3">{{ $postTop->sub_title }}</p>
-                <p class="lead mb-0"><a href="{{ route('home.show', $postTop->id) }}"
-                                        class="text-white font-weight-bold">Đọc tiếp...</a></p>
-            </div>
-            <img src="{{ asset('image/' . $postTop->image ) }}"
-                 width="500px" height="300px" style="margin-top:2%;margin-left:5%;" class="anhtinchinh">
-        </div>
-        <h3 class="pb-3 mb-4 font-italic border-bottom" style="margin-top:20px">
-            Tin chính
-        </h3>
-        <div class="row mb-2">
-            @foreach($categories as $category)
-                <div class="col-md-6">
-                    <div class="card flex-md-row mb-4 box-shadow h-md-250">
-                        <div class="card-body d-flex flex-column align-items-start">
-                            <strong class="d-inline-block mb-2 text-primary">{{ $category->name }}</strong>
-                            @if(count($category->post))
-                                <h3 class="mb-0">
-                                    <a class="text-dark" style="overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp:3;display: -webkit-box;-webkit-box-orient: vertical;height:100px"
-                                       href="{{ route('home.show', $category->post->first()-> id) }}">{{ $category->post->first()->title }}</a>
-                                </h3>
-                                <div
-                                    class="mb-1 text-muted">{{ \Carbon\Carbon::parse($category->post->first()->created_at)->toDayDateTimeString() }}</div>
-                                <a href="{{ route('home.show', $category->post->first()->id) }}">Đọc tiếp...</a>
-                        </div>
-                        <img class="card-img-right flex-auto d-none d-md-block"
-                             src="{{ asset('image/' . $category->post->first()->image) }}"
-                             alt="Card image cap" width="50%">
-                        @endif
+    <div class="container-fluid paddding mb-5" style="font-family: Arial, Helvetica, sans-serif;">
+        <h3 style="font-family: Arial, Verdana, sans-serif;font-weight: bold;margin:20px">Bài viết phổ biến</h3>
+        <div class="row mx-0">
+            <div class="col-md-6 col-12 paddding " data-animate-effect="fadeIn">
+                <div class="fh5co_suceefh5co_height"><img src="{{ asset($postTop->image ) }}" alt="img"/>
+                    <div class="fh5co_suceefh5co_height_position_absolute"></div>
+                    <div class="fh5co_suceefh5co_height_position_absolute_font">
+                        <div class=""><a href="#" class="color_fff"> <i class="fa fa-clock-o"></i>&nbsp;&nbsp;Dec
+                                31,2017
+                            </a></div>
+                        <div class="" style="margin-right:60px !important;"><a
+                                href="{{ route('home.show', $postTop->id) }}"
+                                class="fh5co_good_font">{{ $postTop->title }}</a></div>
                     </div>
                 </div>
-            @endforeach
-        </div>
-    </div>
+            </div>
 
-    <main role="main" class="container">
-        <div class="row">
-            <div class="col-md-8 blog-main">
-                <h3 class="pb-3 mb-4 font-italic border-bottom">
-                    Tin tức khác
-                </h3>
-
-                <div id="tintuc" >
-                    @foreach($postOther as $item)
-
-                        <div class="blog-post" style="height:200px;padding:50px 0" >
-                            <img src="{{ asset('image/'.$item->image) }}"
-                                 style="float: left;margin-right:20px;" height="170px" width="270px">
-                            <h4 class="blog-post-title"><a class="text-dark" href="{{ route('home.show', $item->id) }}">{{$item->title }}</a>
-                            </h4>
-                            <div class="mb-1 text-muted">{{ \Carbon\Carbon::parse($item->created_at)->toDayDateTimeString() }}</div>
-
-                            <p>{{ $item->sub_title }}</p>
-                            <hr style="margin-top:40px">
+            <div class="col-md-6">
+                <div class="row">
+                    @foreach($categories as $category)
+                        <div class="col-md-6 col-6 paddding " data-animate-effect="fadeIn">
+                            @if(count($category->post))
+                                <div class="fh5co_suceefh5co_height_2"><img src="{{$category->post->first()->image}}"
+                                                                            alt="img"/>
+                                    <div class="fh5co_suceefh5co_height_position_absolute"></div>
+                                    <div class="fh5co_suceefh5co_height_position_absolute_font_2">
+                                        <div class=""><a href="{{ route('home.show', $category->post->first()-> id) }}"
+                                                         class="color_fff"> <i
+                                                    class="fa fa-clock-o"></i>&nbsp;&nbsp;{{ \Carbon\Carbon::parse($category->post->first()->created_at)->format('D d/m/Y') }}
+                                            </a></div>
+                                        <div class="" style="margin-right:30px"><a
+                                                href="{{ route('home.show', $category->post->first()-> id) }}"
+                                                class="fh5co_good_font_2">{{ $category->post->first()->title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     @endforeach
                 </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="chuyende" style="height:50px;width:1250px;margin-left:190px;margin-bottom:80px;font-family: Arial, Verdana, sans-serif" >
+        <div class="container animate-box" data-animate-effect="fadeIn">
+            <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4 " style="margin-left:30px">Chuyên đề</div>
 
-            </div><!-- /.blog-main -->
-
-            <aside class="col-md-4 blog-sidebar">
-                <div class="p-3 mb-3 bg-light rounded">
-                    <h4 class="font-italic">Quảng cáo</h4>
-                    <img
-                        src="https://img.lovepik.com/free-template/bg/20200819/bg/c7a25ed5a2ad3_405692.png_detail.jpg!wh650"
-                        width="80%" height="600px" style="margin-left:10%;margin-top: 20px;">
-                    <img
-                        src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/58338d84612077.5d62c9fe1bd96.jpg"
-                        width="80%" height="600px" style="margin-left:10%;margin-top: 20px;">
-                </div>
-
-                <div class="p-3">
-                    <h4 class="font-italic">Liên hệ</h4>
-                    <ol class="list-unstyled">
-                        <li><a href="#">Zalo</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Facebook</a></li>
-                    </ol>
-                </div>
-            </aside><!-- /.blog-sidebar -->
-
-        </div><!-- /.row -->
+            <ul style="display: flex;list-style-type: none">
+                <li style="margin-right: 30px"><img src="https://static-znews.zadn.vn/images/stat.svg" alt=""
+                                                    width="40px"></li>
+                @foreach($thematics as $thematic)
+                    <li >
+                        <div class="buttons" style="margin-right:-10px;margin-top:-25px;">
+                            <button class="btn-hover color-1" style="padding-left:25px"># <a class="text-dark" href="{{url('UI/Thematic/'.$thematic->id)}}"
+                                                                                             style="margin-right:30px;color:whitesmoke;text-decoration: none">{!! $thematic->name !!}</a>
+                            </button>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
 
         </div>
-    </main><!-- /.container -->
+    </div>
 
+    <div class="container-fluid pt-3" style="font-family: Arial, Helvetica, sans-serif;">
+        <div class="container animate-box" data-animate-effect="fadeIn">
+            <div>
+                <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Tin nóng</div>
+            </div>
+            <div class="owl-carousel owl-theme js" id="slider1" style="display: flex">
+                @foreach($postHot as $pH)
+                    <div class="item px-2" style="width:370px">
+                        <div class="fh5co_latest_trading_img_position_relative">
+                            <div class="fh5co_latest_trading_img"><img src="{{$pH->image}}" alt=""
+                                                                       class="fh5co_img_special_relative"/></div>
+                            <div class="fh5co_latest_trading_img_position_absolute"></div>
+                            <div class="fh5co_latest_trading_img_position_absolute_1">
+                                <a href="{{ route('home.show', $pH->id) }}" class="text-white"> {{$pH->title}}</a>
+                                <div
+                                    class="fh5co_latest_trading_date_and_name_color"> {{ \Carbon\Carbon::parse($pH->created_at)->format('D d/m/Y') }}</div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid pb-4 pt-4 paddding" style="font-family: Arial, Helvetica, sans-serif;">
+        <div class="container paddding">
+            <div class="row mx-0">
+                <div class="col-md-8 " data-animate-effect="fadeInLeft"
+                     style="font-family: Arial, Helvetica, sans-serif;">
+                    <div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Tin tức khác</div>
+                    </div>
+                    @foreach($postOther as $item)
+                        <div class="row pb-4">
+                            <div class="col-md-5">
+                                <div class="fh5co_hover_news_img">
+                                    <div class="fh5co_news_img"><img src="{{$item->image}}" alt=""/></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div class="col-md-7  nonehover">
+                                <a href="{{ route('home.show', $item->id) }}" class="fh5co_mini_time"
+                                   style="font-size:23px;font-weight: bold;text-decoration: none;font-family:Times, serif !important;"> {{$item->title}}
+                                    <br/></a>
+                                <p class="fh5co_mini_time "> {{ \Carbon\Carbon::parse($item->created_at)->format('D d/m/Y') }} </p>
+                                <div class="fh5co_consectetur">  {{$item->sub_title}}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="col-md-3 " data-animate-effect="fadeInRight">
+                    <iframe id="tpm_html5-creative-1649739328160" style="width:300px;height:600px;" frameborder="0"
+                            marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true"
+                            scrolling="no" allowfullscreen="true"
+                            src="https://misc.dantri.com.vn/2022/03/29/1334b1b1/02039730/index.html"></iframe>
+
+                    <div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">Bài viết mới nhất</div>
+                    </div>
+                    @foreach($postViews as $postView)
+                        <div class="row pb-3">
+                            <div class="col-5 align-self-center">
+                                <img src="{{$postView->image}}" alt="img" class="fh5co_most_trading"/>
+                            </div>
+                            <div class="col-7 paddding">
+                                <div class="most_fh5co_treding_font" style="font-weight: bold"><a
+                                        style="color:black;text-decoration: none"
+                                        href="{{ route('home.show', $postView->id) }}">{{$postView->title}}</a></div>
+                                <div
+                                    class="most_fh5co_treding_font_123"> {{ \Carbon\Carbon::parse($postView->created_at)->format('D d/m/Y') }} </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+    <div class="elfsight-app-c02d782f-4c40-42b7-825f-d170dbab239d"></div>
 @endsection

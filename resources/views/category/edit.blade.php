@@ -1,9 +1,13 @@
 @extends('layout')
 @section('content')
-    <div class="card">
+    <div class="card" style="margin-left:-100px">
         <div class="card-header">Edit category</div>
         <div class="card-body">
-
+            @if(count($errors)>0)
+                @foreach($errors->all() as $error)
+                    <p class="alert alert-danger">{{$error}}</p>
+                @endforeach
+            @endif
             <form action="{{ url('category/' .$categories->id) }}" method="post" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 @method("PATCH")

@@ -1,12 +1,13 @@
 @extends('layout')
 @section('content')
-    <div class="row" >
+    <div class="card" style="margin-left:-50px;margin-top:25px">
+    <div class="row" style="margin-left:50px;margin-top:25px;padding-right:50px">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Edit New User</h2>
+                <h2>Sửa thông tin người dùng</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('users.index') }}"> Trở lại</a>
             </div>
         </div>
     </div>
@@ -25,10 +26,10 @@
 
 
     {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
-    <div class="row" >
+    <div class="row" style="margin-left:50px;margin-top:50px">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name:</strong>
+                <strong>Tên:</strong>
                 {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
             </div>
         </div>
@@ -40,27 +41,27 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Password:</strong>
+                <strong>Mật khẩu:</strong>
                 {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Confirm Password:</strong>
+                <strong>Nhập lại mật khẩu :</strong>
                 {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Role:</strong>
+                <strong>Vai trò:</strong>
                 {!! Form::select('role[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-xs-3 col-sm-3 col-md-3 ">
+            <button type="submit" class="btn btn-success" style="margin-bottom:50px">Save</button>
         </div>
     </div>
     {!! Form::close() !!}
 
-
+    </div>
 @stop

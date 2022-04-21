@@ -50,7 +50,7 @@
             <div class="form-group row" style="margin:10px 0">
                 <div class="flex items-center justify-end mt-4">
                     <a href="{{ url('auth/facebook') }}">
-                        <img src="{{asset('image/0_2LgyRqjHeEmhaV2P.png')}}" style="margin-left: 5px;">
+                        <img src="https://scontent.fhan14-1.fna.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?_nc_cat=105&ccb=1-5&_nc_sid=ad8a9d&_nc_ohc=Y35AaO_T6OEAX8675aO&_nc_oc=AQnXA31D9WzVcYKwaWUwZfpzGBhbN6pQBdqECvIBO7Z5L-nnrkG-Zgyx9twpGInd5uI&_nc_ht=scontent.fhan14-1.fna&oh=00_AT8aL53_Z8fiWFM980FRwfaazdN3I-2hDywGqoQzkQV1ig&oe=6264A696" style="margin-left: 5px;width:185px;height: 40px">
                     </a>
                     <a href="{{ url('auth/google') }}">
                         <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"

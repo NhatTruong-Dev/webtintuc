@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
-    <div class="card">
-        <div class="card-header">Contactus Page</div>
+    <div class="card" style="margin-left:-100px">
+        <div class="card-header">Thêm danh mục</div>
         @if(count($errors)>0)
             @foreach($errors->all() as $error)
                 <p class="alert alert-danger">{{$error}}</p>

@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Post extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     protected $table='post';
-    protected $fillable=['title',
+    protected $fillable=[
+        'title',
         'image',
         'title_image',
         'sub_title',
         'details',
         'category_id',
+        'thematic_id',
         ];
     public function user()
     {
@@ -30,6 +30,9 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function thematic(){
+        return $this->belongsTo(Thematic::class);
+    }
 
 
 }

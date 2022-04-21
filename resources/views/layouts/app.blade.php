@@ -23,6 +23,17 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 
+
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+    @livewireStyles
+
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}" defer></script>
+
+
 </head>
 
 <body>
@@ -177,9 +188,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ asset("adminmart-master/assets/images/logo-icon.png")}}" alt="user"
-                                 class="rounded-circle"
-                                 width="40">
+
                             <span
                                 class="ml-2 d-none d-lg-inline-block"><span>Hello, {{ Auth::user()->name }}</span> <span
                                     class="text-dark"></span> <i data-feather="chevron-down"
@@ -220,38 +229,77 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
-                    <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{route('dashboard')}}"
-                                                aria-expanded="false"><i data-feather="home"
-                                                                         class="feather-icon"></i><span
-                                class="hide-menu">Admin</span></a>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link sidebar-link" href="{{route('dashboard')}}"
+                           aria-expanded="false"><i data-feather="home"
+                                                    class="feather-icon"></i><span
+                                class="hide-menu">Trang chủ</span></a>
                         <hr/>
                     </li>
 
-                    <li class="nav-small-cap"><span class="hide-menu">Account</span></li>
+                    <li class="nav-small-cap">
+                        @can('xem-vai-tro')
+                            <span class="hide-menu">Account</span>
+                        @endcan
+                    </li>
 
-                    <li class="sidebar-item"><a class="sidebar-link" href="http://localhost:8000/users"
-                                                aria-expanded="false"><i data-feather="tag"
-                                                                         class="feather-icon"></i><span
-                                class="hide-menu">Quản lí nhân viên
+                    <li class="sidebar-item">
+                        @can('xem-vai-tro')
+                            <a class="sidebar-link" href="{{route('users.index')}}"
+                               aria-expanded="false"><i data-feather="tag"
+                                                        class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí nhân viên
                                 </span></a>
+                        @endcan
                     </li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="http://localhost:8000/role"
-                                                aria-expanded="false"><i data-feather="tag"
-                                                                         class="feather-icon"></i><span
-                                class="hide-menu">Quản lí vai trò
+
+                    <li class="sidebar-item">
+                        @can('xem-vai-tro')
+                            <a class="sidebar-link" href="{{route('role.index')}}"
+                               aria-expanded="false"><i data-feather="tag"
+                                                        class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí vai trò
                                 </span></a>
+                        @endcan
                     </li>
+                    @can('xem-vai-tro')
+                        <hr/>
+                    @endcan
                     <li class="nav-small-cap"><span class="hide-menu">News</span></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('category.index')}}"
-                                                aria-expanded="false"><i data-feather="tag"
-                                                                         class="feather-icon"></i><span
-                                class="hide-menu">Quản lí danh mục
+                    @can('xem-danh-muc')
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{route('category.index')}}"
+                                                    aria-expanded="false"><i data-feather="tag"
+                                                                             class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí danh mục
                                 </span></a>
-                    </li>
-                    <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{route('post.index')}}"
-                                                aria-expanded="false"><i data-feather="message-square"
-                                                                         class="feather-icon"></i><span
+                        </li>
+                    @endcan
+                    @can('xem-chuyen-de')
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{route('thematic.index')}}"
+                                                    aria-expanded="false"><i data-feather="tag"
+                                                                             class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí chuyên đề
+                                </span></a>
+                        </li>
+                    @endcan
+                    <li class="sidebar-item">
+
+                        <a class="sidebar-link sidebar-link" href="{{route('post.index')}}"
+                           aria-expanded="false"><i data-feather="message-square"
+                                                    class="feather-icon"></i><span
                                 class="hide-menu">Quản lí bài viết</span></a></li>
+
+                    @can('xem-vai-tro')
+                        <hr />
+                        <li class="nav-small-cap"><span class="hide-menu">Contact</span></li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{route('contact-adm')}}"
+                                                    aria-expanded="false"><i data-feather="tag"
+                                                                             class="feather-icon"></i><span
+                                    class="hide-menu">Liên hệ tòa soạn
+                                </span></a>
+                        </li>
+                    @endcan
+
                     <li class="list-divider"></li>
                     <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
                     <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{ route('profile.show') }}"
@@ -274,8 +322,12 @@
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-        <div class="container">
+        <div class="container" style="margin-top:50px;margin-left:-100px">
             @yield('content')
+            {{ $slot }}
+            <x-jet-banner />
+            @stack('modals')
+            @livewireScripts
         </div>
         <!-- ============================================================== -->
         <!-- footer -->

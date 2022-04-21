@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
+
 
 class CategoryController extends Controller
 {
     function __construct()
     {
         $this->middleware('permission:xem-danh-muc');
-        $this->middleware('permission:tao-danh-muc', ['only' => ['create','store']]);
+        $this->middleware('permission:them-danh-muc', ['only' => ['create','store']]);
         $this->middleware('permission:sua-danh-muc', ['only' => ['edit','update']]);
         $this->middleware('permission:xoa-danh-muc', ['only' => ['destroy']]);
     }
@@ -25,6 +27,9 @@ class CategoryController extends Controller
     {
 
         $categories = DB::table('category')->get();
+        if($search=request()->search){
+            $categories=Category::orderBy('created_at','DESC')->where('name','like','%'.$search.'%')->paginate(5)->appends(request()->query());
+        }
         return view('category.index')->with('categories', $categories);
     }
 
@@ -47,7 +52,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+            $validated = $request->validate([
             'name' => 'required|unique:category|max:255',
         ], [
             'name.required' => 'Vui lòng nhập tên danh mục !',
@@ -55,10 +60,10 @@ class CategoryController extends Controller
         ]);
 
 
-        $data = Category::create(["name" => $request->post('name')]);
+        $data = Category::create($validated);
 
-
-        return redirect()->route('category.index',compact('data'))->with('success', 'Thêm danh mục thành công!');
+        Toastr::success('Thêm danh mục thành công');
+        return redirect()->route('category.index',compact('data'));
     }
 
     /**
@@ -97,9 +102,18 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $category = Category::find($id);
-        $input = $request->all();
-        $category->update($input);
-        return redirect()->route('category.index')->with('success', 'Sửa danh mục thành công!');
+
+        $validated = $request->validate([
+            'name' => 'required|unique:category|max:255',
+        ], [
+            'name.required' => 'Vui lòng nhập tên danh mục !',
+            'name.unique' => 'Đã tồn tại tên danh mục ! Vui lòng nhập tên khác',
+        ]);
+
+
+        $category->update($validated);
+        Toastr::success('Sửa danh mục thành công');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -112,7 +126,7 @@ class CategoryController extends Controller
     {
 
         Category::destroy($id);
-
-        return redirect()->route('category.index')->with('success', 'Xóa danh mục thành công!');
+        Toastr::success('Xóa danh mục thành công');
+        return redirect()->route('category.index');
     }
 }

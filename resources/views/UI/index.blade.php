@@ -1,364 +1,366 @@
-<html lang="en">
+<!DOCTYPE html>
+<!--
+	24 News by FreeHTML5.co
+	Twitter: https://twitter.com/fh5co
+	Facebook: https://fb.com/fh5co
+	URL: https://freehtml5.co
+-->
+<html lang="en" class="no-js">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
-    <title>Blog Template for Bootstrap</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/blog/">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js" integrity="sha512-iqRVtNB+t9O+epcgUTIPF+nklypcR23H1yR1NFM9kffn6/iBhZ9bTB6oKLaGMv8JE9UgjcwfBFg/eHC/VMws+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.4/echo.min.js" integrity="sha512-pRlWv8pz5h+CSlSDGN9Yln1dhazzfJinXUUkZbPTqPdBD4vunNYp7qoldLIq0y+UqT5hht9ZsZs8+qdzYyeABg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-    <link href="{{ asset("css/style.css") }}" rel="stylesheet">
+    <title>Tòa soạn điện tử 24News</title>
+    <link href="{{ asset("h_css/media_query.css")}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset("h_css/bootstrap.css")}}" rel="stylesheet" type="text/css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="{{ asset("h_css/animate.css")}}" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href="{{ asset("h_css/owl.carousel.css")}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset("h_css/owl.theme.default.css")}}" rel="stylesheet" type="text/css"/>
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset("h_css/style_1.css")}}" rel="stylesheet" type="text/css"/>
+    <!-- Modernizr JS -->
+    <script src="{{ asset("h_js/modernizr-3.5.0.min.js")}}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        .container8
-        {max-width:1370px; margin:auto;
-            overflow: hidden;
-            position: fixed;
-            right:80px;
-            text-align: center;
-            top: calc(94% + 10px)!important;
-            transform: translateY(-110%);
-
-            z-index: 9999;
-            background-color: #EBEBEB;
+        a{
+            text-decoration: none;
         }
-        img{ max-width:100%;}
-        .inbox_people {
-            background: #f8f8f8 none repeat scroll 0 0;
-            float: left;
-            overflow: hidden;
-            width: 40%; border-right:1px solid #c4c4c4;
+        body1, button, input {
+            font: 1em Hind, sans-serif;
+            line-height: 1.5em;
         }
-        .inbox_msg {
-            border: 1px solid #c4c4c4;
-            clear: both;
-            overflow: hidden;
+        body1, input {
+            color: #171717;
         }
-        .top_spac{ margin: 20px 0 0;}
-
-
-        .recent_heading {float: left; width:40%;}
-        .srch_bar {
-            display: inline-block;
-            text-align: right;
-            width: 60%;
+        body1, .search-bar {
+            display: flex;
         }
-        .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
-
-        .recent_heading h4 {
-            color: #05728f;
-            font-size: 21px;
+        body1 {
+            background: #f1f1f1;
+            height: 100vh;
+        }
+        .search-bar input,
+        .search-btn,
+        .search-btn:before,
+        .search-btn:after {
+            transition: all 0.25s ease-out;
+        }
+        .search-bar input,
+        .search-btn {
+            width: 3em;
+            height: 3em;
+        }
+        .search-bar input:invalid:not(:focus),
+        .search-btn {
+            cursor: pointer;
+        }
+        .search-bar,
+        .search-bar input:focus,
+        .search-bar input:valid  {
+            width: 100%;
+        }
+        .search-bar input:focus,
+        .search-bar input:not(:focus) + .search-btn:focus {
+            outline: transparent;
+        }
+        .search-bar {
             margin: auto;
+            padding: 1.5em;
+            justify-content: center;
+            max-width: 30em;
         }
-        .srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
-        .srch_bar .input-group-addon button {
-            background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-            border: medium none;
-            padding: 0;
-            color: #707070;
-            font-size: 18px;
+        .search-bar input {
+            background: transparent;
+            border-radius: 1.5em;
+            box-shadow: 0 0 0 0.4em #171717 inset;
+            padding: 0.75em;
+            transform: translate(0.5em,0.5em) scale(0.5);
+            transform-origin: 100% 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
-        .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
-
-        .chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
-        .chat_ib h5 span{ font-size:13px; float:right;}
-        .chat_ib p{ font-size:14px; color:#989898; margin:auto}
-        .chat_img {
-            float: left;
-            width: 11%;
+        .search-bar input::-webkit-search-decoration {
+            -webkit-appearance: none;
         }
-        .chat_ib {
-            float: left;
-            padding: 0 0 0 15px;
-            width: 88%;
+        .search-bar input:focus,
+        .search-bar input:valid {
+            background: #fff;
+            border-radius: 0.375em 0 0 0.375em;
+            box-shadow: 0 0 0 0.1em #d9d9d9 inset;
+            transform: scale(1);
         }
-
-        .chat_people{ overflow:hidden; clear:both;}
-        .chat_list {
-            border-bottom: 1px solid #c4c4c4;
-            margin: 0;
-            padding: 18px 16px 10px;
+        .search-btn {
+            background: #171717;
+            border-radius: 0 0.75em 0.75em 0 / 0 1.5em 1.5em 0;
+            padding: 0.75em;
+            position: relative;
+            transform: translate(0.25em,0.25em) rotate(45deg) scale(0.25,0.125);
+            transform-origin: 0 50%;
         }
-        .inbox_chat { height: 550px; overflow-y: scroll;}
-
-        .active_chat{ background:#ebebeb;}
-
-        .incoming_msg_img {
-            display: inline-block;
-            width: 6%;
-        }
-        .received_msg {
-            display: inline-block;
-            padding: 0 0 0 10px;
-            vertical-align: top;
-            width: 92%;
-        }
-        .received_withd_msg p {
-            background:cornflowerblue none repeat scroll 0 0;
-            border-radius: 3px;
-            color: white;
-            font-size: 14px;
-            margin: 0;
-            padding: 5px 10px 5px 12px;
-            width: 100%;
-        }
-        .time_date {
-            color: #747474;
+        .search-btn:before,
+        .search-btn:after {
+            content: "";
             display: block;
-            font-size: 12px;
-            margin: 8px 0 0;
+            opacity: 0;
+            position: absolute;
         }
-        .received_withd_msg { width: 57%;}
-        .mesgs {
-            float: left;
-            padding: 30px 15px 0 25px;
-            width: 60%;
-        }
-
-        .sent_msg p {
-            background: #05728f none repeat scroll 0 0;
-            border-radius: 3px;
-            font-size: 14px;
-            margin: 0; color:#fff;
-            padding: 5px 10px 5px 12px;
-            width:100%;
-        }
-        .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
-        .sent_msg {
-            float: right;
-            width: 46%;
-        }
-        .input_msg_write input {
-            background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-            border: medium none;
-            color: #4c4c4c;
-            font-size: 15px;
-            min-height: 48px;
-            width: 100%;
-        }
-
-        .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
-        .msg_send_btn {
-            background: #05728f none repeat scroll 0 0;
-            border: medium none;
+        .search-btn:before {
             border-radius: 50%;
+            box-shadow: 0 0 0 0.2em #f1f1f1 inset;
+            top: 0.75em;
+            left: 0.75em;
+            width: 1.2em;
+            height: 1.2em;
+        }
+        .search-btn:after {
+            background: #f1f1f1;
+            border-radius: 0 0.25em 0.25em 0;
+            top: 51%;
+            left: 51%;
+            width: 0.75em;
+            height: 0.25em;
+            transform: translate(0.2em,0) rotate(45deg);
+            transform-origin: 0 50%;
+        }
+        .search-btn span {
+            display: inline-block;
+            overflow: hidden;
+            width: 1px;
+            height: 1px;
+        }
+
+        /* Active state */
+        .search-bar input:focus + .search-btn,
+        .search-bar input:valid + .search-btn {
+            background: #2762f3;
+            border-radius: 0 0.375em 0.375em 0;
+            transform: scale(1);
+        }
+        .search-bar input:focus + .search-btn:before,
+        .search-bar input:focus + .search-btn:after,
+        .search-bar input:valid + .search-btn:before,
+        .search-bar input:valid + .search-btn:after {
+            opacity: 1;
+        }
+        .search-bar input:focus + .search-btn:hover,
+        .search-bar input:valid + .search-btn:hover,
+        .search-bar input:valid:not(:focus) + .search-btn:focus {
+            background: #0c48db;
+        }
+        .search-bar input:focus + .search-btn:active,
+        .search-bar input:valid + .search-btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-hover {
+
+            font-size: 16px;
+            font-weight: 600;
             color: #fff;
             cursor: pointer;
-            font-size: 17px;
-            height: 33px;
-            position: absolute;
-            right: 0;
-            top: 11px;
-            width: 33px;
-        }
-        .messaging { padding: 0 0 50px 0;}
-        .msg_history {
-            height: 516px;
-            overflow-y: auto;
-        }
-        .messenger{
-            overflow: hidden;
-            position: fixed;
-            right:10px;
+            margin: 20px;
+            height: 55px;
             text-align: center;
-            top: calc(94% + 10px)!important;
-            transform: translateY(-90%);
-            width: 70px;
-            z-index: 9999;
-            height: 70px;
+            border: none;
+            background-size: 200% 100%;
+            border-radius: 50px;
+            moz-transition: all .4s ease-in-out;
+            -o-transition: all .4s ease-in-out;
+            -webkit-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+        }
+
+        .btn-hover:hover {
+            background-position: 100% 0;
+            moz-transition: all .4s ease-in-out;
+            -o-transition: all .4s ease-in-out;
+            -webkit-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+        }
+
+        .btn-hover:focus {
+            outline: none;
+        }
+
+        .btn-hover.color-1 {
+            background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+            box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+        }
+
+        .blog-post-title {
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+
+        @media screen and (prefers-color-scheme: dark) {
+            body, input {
+                color: #f1f1f1;
+            }
+            body {
+                background: #171717;
+            }
+            .search-bar input {
+                box-shadow: 0 0 0 0.4em #f1f1f1 inset;
+            }
+            .search-bar input:focus,
+            .search-bar input:valid {
+                background: #3d3d3d;
+                box-shadow: 0 0 0 0.1em #3d3d3d inset;
+            }
+            .search-btn {
+                background: #f1f1f1;
+            }
+
+
         }
     </style>
 </head>
-
-<body>
-<div class="container">
-    <header class="blog-header py-3" >
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-4 pt-1">
-                <a class="text-muted" href="#">Nhật Trường</a>
-            </div>
-            <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark" href="http://127.0.0.1:8000/UI/Home" >News</a>
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-                <a class="text-muted" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                         class="mx-3">
-                        <circle cx="10.5" cy="10.5" r="7.5"></circle>
-                        <line x1="21" y1="21" x2="15.8" y2="15.8"></line>
-                    </svg>
-                </a>
-                <a class="btn btn-sm btn-outline-secondary" href="#">Đăng kí</a>
+<body style="font-family: Arial, Verdana, sans-serif">
+<iframe id="tpm_html5-creative-1649745083410" style="width:100%;height:250px;margin-bottom:-10px" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" src="https://misc.dantri.com.vn/2022/03/31/139a64a9/09035750/index.html"></iframe>
+<div class="container-fluid fh5co_header_bg" style="font-family: Arial, Helvetica, sans-serif;">
+    <div class="container">
+        <div class="row" >
+            <div class="col-12 fh5co_mediya_center"><a href="#" class="color_fff fh5co_mediya_setting"><i
+                        class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;Hà Nội ,<?php use Illuminate\Support\Carbon;Carbon::setLocale('vi');
+                    $dt = Carbon::now();
+                    echo $dt->format('d/m/Y')?></a>
+                <div class="d-inline-block fh5co_trading_posotion_relative"><a href="#" class="treding_btn">Trending</a>
+                    <div class="fh5co_treding_position_absolute"></div>
+                </div>
+                <a href="#" class="color_fff fh5co_mediya_setting">Đọc tin tức mỗi ngày để tiếp cận thế giới mới</a>
             </div>
         </div>
-    </header>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-3 fh5co_padding_menu">
+                <img src="{{asset("/image/logo.png")}}" alt="img" class="fh5co_logo_width"/>
 
-    <div class="nav-scroller py-1 mb-2" >
-        <nav class="nav d-flex  danhmuc">
-            @foreach($categories as $category)
-            <a class="p-2 text-muted" href="#" style="margin-right:30px">{!! $category->name !!}</a>
-            @endforeach
+            </div>
+            <div class="col-12 col-md-9 align-self-center fh5co_mediya_right">
+
+
+                <!--<div class="d-inline-block text-center"><img src="images/country.png" alt="img" class="fh5co_country_width"/></div>-->
+                <div class="text-center d-inline-block">
+                    <a>
+                        <form  class="search-bar" action="timkiem" method="post" role="search">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                            <input  type="search"  name="tukhoa" required>
+                            <button class="search-btn" type="submit">
+                                <span>Search</span>
+                            </button>
+                        </form>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid bg-faded fh5co_padd_mediya padding_786" style="font-family: Arial, Helvetica, sans-serif;font-weight:bold">
+    <div class="container padding_786">
+        <nav class="navbar navbar-toggleable-md navbar-light ">
+            <button class="navbar-toggler navbar-toggler-right mt-3" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation"><span class="fa fa-bars"></span></button>
+            <a class="navbar-brand" href="#"><img src="" alt="img" class="mobile_logo_width"/></a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{url('UI/Home')}}"><i class="fa-solid fa-house"></i> <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item " style="display: flex">
+                        @foreach($categories as $category)
+                            <a class="nav-link" href="{{url('UI/Category/'.$category->id)}}"
+                               >{!! $category->name !!}</a>
+                        @endforeach
+                    </li>
+
+                </ul>
+            </div>
         </nav>
     </div>
-
-    <main role="main" class="container" style="margin-top:50px;">
-        @yield('content')
-    </main><!-- /.container -->
-
-    <footer class="blog-footer">
-        <a href="#">Lên đầu trang</a>
-        </p>
-    </footer>
-    <div class="messenger">
-        <a target="_blank" title="Facebook"  onclick="myFunction()">
-            <img
-                src="https://cdn3.iconfinder.com/data/icons/2018-social-media-logotypes/1000/2018_social_media_popular_app_logo_messenger-128.png">
-        </a>
-    </div>
+</div>
+<div>
+    @yield("content")
+</div>
 
 
-
-    <div class="container8" id="boxchat" style="display:none">
-        <h3 class=" text-center">Phòng chat thảo luận</h3>
-        <div class="messaging">
-            <div class="inbox_msg">
-                <div class="inbox_people">
-                    <div class="headind_srch">
-                        <div class="recent_heading">
-                            <h4>Recent</h4>
-                        </div>
-                        <div class="srch_bar">
-                            <div class="stylish-input-group">
-                                <input type="text" class="search-bar"  placeholder="Search" >
-                                <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>
-                        </div>
-                    </div>
-                    <div class="inbox_chat">
-                        <div class="chat_list active_chat">
-                            <div class="chat_people">
-                                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                                <div class="chat_ib">
-                                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                                    <p>Test, which is a new approach to have all solutions
-                                        astrology under one roof.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chat_list">
-                            <div class="chat_people">
-                                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                                <div class="chat_ib">
-                                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                                    <p>Test, which is a new approach to have all solutions
-                                        astrology under one roof.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="mesgs" style="margin-left:550px;margin-top:-600px">
-                    <div class="msg_history">
-                        <div class="incoming_msg">
-                            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                            <div class="received_msg">
-                                <div class="received_withd_msg">
-                                    <p>Test which is a new approach to have all
-                                        solutions</p>
-                                    <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                            </div>
-                        </div>
-                        <div class="outgoing_msg">
-                            <div class="sent_msg">
-                                <p>Test which is a new approach to have all
-                                    solutions</p>
-                                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-                        </div>
-                        <div class="incoming_msg">
-                            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                            <div class="received_msg">
-                                <div class="received_withd_msg">
-                                    <p>Test, which is a new approach to have</p>
-                                    <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="type_msg">
-                        <div class="input_msg_write">
-                            <input  v-model="message"  @keyup.enter type="text" class="write_msg" placeholder="Type a message" />
-                            <button  @click="sendMessage" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-                </div>
+<div class="container-fluid fh5co_footer_bg pb-3">
+    <div class="row" style="margin-bottom:50px">
+        <div class="col-12 spdp_right py-5"><img src="{{asset("/image/white_logo.png")}}" alt="img" class="footer_logo"/></div>
+        <div class="clearfix"></div>
+        <div class="col-12 col-md-6 col-lg-4" style="margin-left:50px;font-family: Arial, Verdana, sans-serif">
+            <div class="footer_main_title py-3">Về chúng tôi</div>
+            <div class="footer_menu"> Tòa soạn điện tử<br/>
+                Luôn mang tới cho người đọc những thông tin nóng và mới nhất<br/>
+                Giúp bahn nắm bắt được xu thế xã hội , nhịp sống thế <giới></giới>
             </div>
+        </div>
+        <div class="col-12 col-md-3 col-lg-3">
+            <div class="footer_main_title py-3"> Địa chỉ</div>
+            <ul class="footer_menu">
+                Tòa soạn: Quận Cầu Giấy, Hà Nội<br/>
+                Hotline: 0848.794.608 - Email: toasoandientu@crawler
+            </ul>
+        </div>
+
+        <div class="col-12 col-md-12 col-lg-4 ">
+            <div class="footer_main_title py-3">Một sản phẩm của</div>
+            <a href="#" class="footer_img_post_6"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI837wLOjmBo33gNelUhNYHBZTGj9NPanH-Q&usqp=CAU" alt="img"/></a>
+            <a href="#" class="footer_img_post_6"><img src="data:image/png;base64,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" alt="img"/></a>
+
+        </div>
+    </div>
+    <div class="row justify-content-center pt-2 pb-4">
+        <div class="col-12 col-md-8 col-lg-7 ">
+            <div class="input-group">
+                <span class="input-group-addon fh5co_footer_text_box" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+                <input type="text" class="form-control fh5co_footer_text_box" placeholder="Enter your email..." aria-describedby="basic-addon1">
+                <a href="#" class="input-group-addon fh5co_footer_subcribe" id="basic-addon12"> <i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;Subscribe</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
+<div class="container-fluid fh5co_footer_right_reserved">
+    <div class="container">
+        <div class="row  ">
+            <div class="col-12 col-md-6 py-4 Reserved"> © Copyright 2018, All rights reserved. Design by <a href="https://freehtml5.co" title="Free HTML5 Bootstrap templates">Nhật Trường</a>. </div>
+            <div class="col-12 col-md-6 spdp_right py-4">
+                <a href="{{route('contact')}}" class="footer_last_part_menu">Liên hệ chúng tôi </a>
+        </div>
+    </div>
+</div>
 
-        </div></div >
+<div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
 
 
-    <!-- Bootstrap core JavaScript
-================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/vendor/holder.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script>
-        Holder.addTheme('thumb', {
-            bg: '#55595c',
-            fg: '#eceeef',
-            text: 'Thumbnail'
-        });
-    </script>
-    <script>
-        function myFunction() {
-            var x = document.getElementById("boxchat");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-    </script>
-    <script>
-        new Vue({
-            el:"#boxchat",
-            data(){
-                return{
-                    message:""
-                }
-            },
-            method:{
-                sendMessage(){
-                    console.log(this.message)
-                }
-            }
-        })
-    </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="{{asset("h_js/owl.carousel.min.js")}}"></script>
+<!--<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+<!-- Waypoints -->
+<script src="{{asset("h_js/jquery.waypoints.min.js")}}"></script>
+<!-- Main -->
+<script src="{{asset("h_js/main.js")}}}"></script>
+
 </body>
 </html>

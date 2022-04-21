@@ -1,10 +1,11 @@
 @extends('layout')
 @section('content')
+    <div class="card" style="margin-left:-250px">
     <div class="row">
-        <<div class="row" >
+        <div class="row" style="margin-left:150px;margin-top:50px">
             <div class="pull-left">
                 <h2>Edit Role</h2>
-            </div>
+            </div><br />
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('role.index') }}"> Back</a>
             </div>
@@ -26,7 +27,7 @@
 
     {!! Form::model($role, ['method' => 'PATCH','route' => ['role.update', $role->id]]) !!}
     {!! Form::model($role, ['method' => 'PATCH','route' => ['role.update', $role->id]]) !!}
-    <div class="row" >
+    <div class="row" style="margin-left:50px;margin-top:50px">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
@@ -44,12 +45,11 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-xs-3 col-sm-3 col-md-3 ">
+            <button type="submit" class="btn btn-success" style="margin-bottom: 50px">Submit</button>
         </div>
     </div>
     {!! Form::close() !!}
 
-
+    </div>
 @endsection
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
