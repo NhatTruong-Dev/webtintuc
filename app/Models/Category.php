@@ -17,4 +17,8 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+    public function crawler(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(LinkCrawler::class);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -16,6 +17,9 @@ class UserController extends Controller
     {
 
         $data = User::orderBy('id', 'DESC')->paginate(5);
+        if($search=request()->search){
+            $data=User::orderBy('created_at','DESC')->where('name','like','%'.$search.'%')->paginate(5)->appends(request()->query());
+        }
         return view('users.index', compact('data'));
     }
 
@@ -34,6 +38,14 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'role' => 'required'
+        ],[
+            'name.required'=>'Tên không được để trống',
+            'email.required'=>'Email không được để trống',
+            'email.email' => 'Email sai định dạng',
+            'role.required'=>'Vai trò không được để trống',
+            'password.required'=>'Mật khẩu không được để trống',
+            'password.same'=>'Mật khẩu nhập lại không đúng',
+            'email.unique' => 'Email đã tồn tại',
         ]);
 
         $input = $request->all();
@@ -41,9 +53,9 @@ class UserController extends Controller
 
         $user = User::create($input);
         $user->assignRole($request->input('role'));
+        Toastr::success('Thêm người dùng thành công');
+        return redirect()->route('users.index');
 
-        return redirect()->route('users.index')
-            ->with('success', 'User created successfully');
     }
 
     public function show($id)
@@ -68,6 +80,14 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
             'role' => 'required'
+        ],[
+            'name.required'=>'Tên không được để trống',
+            'email.required'=>'Email không được để trống',
+            'email.unique' => 'Email đã tồn tại',
+            'email.email' => 'Email sai định dạng',
+            'role.required'=>'Vai trò không được để trống',
+            'password.same'=>'Mật khẩu nhập lại không đúng'
+
         ]);
 
         $input = $request->all();
@@ -82,16 +102,15 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('role'));
-
-        return redirect()->route('users.index')
-            ->with('success', 'User updated successfully');
+        Toastr::success('Sửa thông tin người dùng thành công');
+        return redirect()->route('users.index');
     }
 
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully');
+        Toastr::success('Xóa người dùng thành công');
+        return redirect()->route('users.index');
     }
 }
 

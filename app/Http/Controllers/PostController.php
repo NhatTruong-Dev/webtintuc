@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\PostCreated;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Thematic;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Hash;
@@ -25,8 +26,10 @@ class PostController extends Controller
      */
     public function index()
     {
-
-        $posts=Post::paginate(5);
+        $posts=Post::paginate(10);
+        if($search=request()->search){
+            $posts=Post::orderBy('created_at','DESC')->where('title','like','%'.$search.'%')->paginate(5)->appends(request()->query());
+        }
         return view('post.index')->with('posts',$posts);
     }
 
@@ -37,10 +40,9 @@ class PostController extends Controller
      */
     public function create()
     {
-
-
         $categories=Category::all();
-        return view('post.create',compact('categories'));
+        $thematics=Thematic::all();
+        return view('post.create',compact('categories','thematics'));
         Toastr::success('Thêm thành công','Success');
     }
 
@@ -55,37 +57,37 @@ class PostController extends Controller
 
         $input = $request->all();
         if ($image = $request->file('image')) {
-            $destinationPath = 'image/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = time(). "." . $image->getClientOriginalExtension();
+            $image->move(public_path(), $profileImage);
             $input['image'] = "$profileImage";
         }
 
         $rules = [
             'title' => 'required|unique:post',
-            'title_image' => 'required',
             'sub_title' => 'required',
             'category_id' => 'required|integer',
-            'details' => 'required'
+            'details' => 'required',
         ];
 
         $message=[
-            'title.required'=>'• Vui lòng nhập title !',
-            'title_image.required'=>'• Vui lòng nhập title_image !',
-            'sub_title.required'=>'• Vui lòng nhập sub_title !',
+            'title.required'=>'• Vui lòng nhập tiêu đề !',
+            'sub_title.required'=>'• Vui lòng nhập phụ đề !',
             'category_id.required'=>'• Vui lòng nhập category_id !',
             'category_id.integer'=>'• Category_id là 1 số!',
-            'details.required'=>'• Vui lòng nhập details !',
+            'details.required'=>'• Vui lòng nhập nội dung !',
         ];
 
         $request->validate($rules,$message);
 
         Post::create($input);
 
-        $data=['title'=>$input['title'],'author'=>auth()->user()->name];
-        event(new PostCreated($data));
+//        $data=['title'=>$input['title'],'author'=>auth()->user()->name];
+//        event(new PostCreated($data));
+        Toastr::success('Thêm bài viết thành công');
         $categories=Category::all();
-        return redirect()->route('post.index',compact('categories'))->with('success', 'Thêm bài viết thành công');
+        $thematics=Thematic::all();
+
+        return redirect()->route('post.index',compact('categories','thematics'));
     }
 
     /**
@@ -98,7 +100,6 @@ class PostController extends Controller
     {
 
         $post = Post::find($id);
-
         return view('post.show')->with('posts', $post);
     }
 
@@ -110,10 +111,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-
-        $post = Post::find($id);
+        $thematics=Thematic::all();
+        $posts = Post::find($id);
         $categories=Category::all();
-        return view('post.edit',compact('categories'))->with('posts', $post);
+
+        return view('post.edit',compact('categories','thematics','posts'));
     }
 
     /**
@@ -128,17 +130,10 @@ class PostController extends Controller
 
         $post = Post::find($id);
         $input = $request->all();
-        if ($image = $request->file('image')) {
-            $destinationPath = 'image/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
-        }else{
-            unset($input['image']);
-        }
 
         $post->update($input);
-        return redirect()->route('post.index')->with('success', 'Sừa bài viết thành công');
+            Toastr::success('Sửa bài viết thành công');
+        return redirect()->route('post.index');
     }
 
     /**
@@ -149,9 +144,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-
-
         Post::destroy($id);
-        return redirect()->route('post.index')->with('success', 'Xóa bài viết thành công');
+        Toastr::success('Xóa bài viết thành công');
+        return redirect()->route('post.index');
     }
+
 }

@@ -22,18 +22,6 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
 
@@ -239,20 +227,31 @@
                         <hr/>
                     </li>
 
-                    <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
+                    <li class="nav-small-cap"><span class="hide-menu">Account</span></li>
 
-                    <li class="sidebar-item"><a class="sidebar-link" href="http://localhost:8000/user"
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('users.index')}}"
                                                 aria-expanded="false"><i data-feather="tag"
                                                                          class="feather-icon"></i><span
                                 class="hide-menu">Quản lí nhân viên
                                 </span></a>
                     </li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('category.index')}}"
+
+                    <li class="sidebar-item"><a class="sidebar-link" hhref="{{route('role.index')}}"
                                                 aria-expanded="false"><i data-feather="tag"
                                                                          class="feather-icon"></i><span
-                                class="hide-menu">Quản lí danh mục
+                                class="hide-menu">Quản lí vai trò
                                 </span></a>
                     </li>
+
+                    <li class="nav-small-cap"><span class="hide-menu">News</span></li>
+                    @can('xem-danh-muc')
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{route('category.index')}}"
+                                                    aria-expanded="false"><i data-feather="tag"
+                                                                             class="feather-icon"></i><span
+                                    class="hide-menu">Quản lí danh mục
+                                </span></a>
+                        </li>
+                    @endcan
                     <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="{{route('post.index')}}"
                                                 aria-expanded="false"><i data-feather="message-square"
                                                                          class="feather-icon"></i><span
@@ -279,8 +278,10 @@
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-    @yield('content')
-    <!-- ============================================================== -->
+        <div class="container">
+            @yield('content')
+        </div>
+        <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->

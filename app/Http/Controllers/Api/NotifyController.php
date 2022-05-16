@@ -84,6 +84,6 @@ class NotifyController extends Controller
     public function destroy($id)
     {
         $NOTIFY=Notifications::destroy($id);
-        return response()->json($NOTIFY);
+        return response()->json($NOTIFY,);
     }
 }

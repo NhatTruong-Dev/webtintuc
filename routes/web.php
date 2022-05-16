@@ -1,5 +1,8 @@
 <?php
 
+
+use App\Http\Controllers\PostContactController;
+use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,20 +23,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/UI/Category',[\App\Http\Controllers\HomeController::class, 'category'])->name('home.category');
+Route::get('/UI/Category/{id}',[\App\Http\Controllers\HomeController::class, 'category']);
+Route::get('/UI/Thematic/{id}',[\App\Http\Controllers\HomeController::class, 'thematic']);
 
-Route::get('/UI/Home', [\App\Http\Controllers\HomeController::class, 'home'])->name('home.index')->middleware('cacheResponse:600');
+Route::get('/UI/Home', [\App\Http\Controllers\HomeController::class, 'home'])->name('home.index');
 
 Route::resource('category', \App\Http\Controllers\CategoryController::class);
+Route::resource('thematic', \App\Http\Controllers\ThematicController::class);
 
-Route::resource('post', \App\Http\Controllers\PostController::class);
 
+Route::get('/create',[\App\Http\Controllers\PostController::class,'create']);
 
 Route::get('/UI/post/{id}', [\App\Http\Controllers\HomeController::class, 'show'])->name('home.show');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
 
 
 Route::get('/email/verify', function () {
@@ -53,15 +56,15 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
-Route::post('/UI/post/{id}', [\App\Http\Controllers\HomeController::class, 'postComment'])->name('home.postComment');
+Route::post('/UI/post/{id}', [\App\Http\Controllers\UI\PostController::class, 'store'])->name('comment.store');
 
 
 
 
 
-Route::get('send-email', [\App\Http\Controllers\SendEmailController::class, 'index']);
+Route::get('send-email', [\App\Http\Controllers\Other\SendEmailController::class, 'index']);
 
-Route::get('queue-mail',[\App\Http\Controllers\JobController::class,'processQueue']);
+Route::get('queue-mail',[\App\Http\Controllers\Other\JobController::class,'processQueue']);
 
 
 
@@ -82,8 +85,41 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('role', \App\Http\Controllers\RoleController::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('category', \App\Http\Controllers\CategoryController::class);
+    Route::resource('post', \App\Http\Controllers\PostController::class);
 });
 
-Auth::routes();
+Route::group(['prefix'=>'/crawl'],function(){
+    Route::get('',[\App\Http\Controllers\LinkCrawlController::class,'index'])->name('crawl.index');
+    Route::get('/create',[\App\Http\Controllers\LinkCrawlController::class,'create'])->name('crawl.create');
+    Route::post('/store',[\App\Http\Controllers\LinkCrawlController::class,'store'])->name('crawl.store');
+    Route::get('/{id}',[\App\Http\Controllers\LinkCrawlController::class,'show']);
+    Route::get('{id}/edit',[\App\Http\Controllers\LinkCrawlController::class,'edit'])->name('crawl.edit');
+    Route::put('update',[\App\Http\Controllers\LinkCrawlController::class,'update'])->name('crawl.update');
+    Route::delete('/{id}/delete',[\App\Http\Controllers\LinkCrawlController::class,'destroy'])->name('crawl.destroy');
+});
+
+Route::post('post/image_upload', [PostController::class,'upload'])->name('upload');
+
+Route::get('ck',[\App\Http\Controllers\PostController::class,'test']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::post('/UI/timkiem',[\App\Http\Controllers\HomeController::class,'timkiem']);
+
+Route::get('/api',[\App\Http\Controllers\ApiController::class,'category']);
+
+
+
+
+Route::get('contact-form', [PostContactController::class, 'index'])->name('contact');
+Route::post('store-form', [PostContactController::class, 'store']);
+Route::get('contact-adm',[PostContactController::class,'index2'])->name('contact-adm');
+Route::get('contact-adm/{id}',[PostContactController::class,'show']);
+
+
+Route::get('/manage-comment',[\App\Http\Controllers\CommentController::class,'index'])->name('comment.index');
+Route::delete('/manage-comment/{id}/delete',[\App\Http\Controllers\CommentController::class,'destroy']);
+
+
+Route::post('/email', [\App\Http\Controllers\EmailController::class,'sendEmail'])->name('send.email');

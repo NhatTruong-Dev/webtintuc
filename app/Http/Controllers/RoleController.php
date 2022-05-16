@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
@@ -23,7 +24,10 @@ class RoleController extends Controller
     public function index(Request $request)
     {
 
-        $roles = Role::orderBy('id', 'DESC')->paginate(5);
+        $roles = Role::orderBy('id', 'ASC')->paginate(5);
+        if($search=request()->search){
+            $roles=\App\Models\Role::orderBy('created_at','DESC')->where('name','like','%'.$search.'%')->paginate(5)->appends(request()->query());
+        }
         return view('role.index', compact('roles'));
     }
 
@@ -38,13 +42,16 @@ class RoleController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
+        ],[
+            'name.required'=>'Tên vai trò không được để trống',
+            'name.unique'=>'Đã tồn tại vai trò',
+            'permission.required'=>'Quyền không được để trống'
         ]);
 
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
-
-        return redirect()->route('role.index')
-            ->with('success', 'Role created successfully');
+        Toastr::success('Thêm vai trò thành công');
+        return redirect()->route('role.index');
     }
 
     public function show($id)
@@ -73,6 +80,9 @@ class RoleController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'permission' => 'required',
+        ],[
+            'name.required'=>'Tên vai trò không được để trống',
+            'permission.required'=>'Quyền không được để trống'
         ]);
 
         $role = Role::find($id);
@@ -80,16 +90,15 @@ class RoleController extends Controller
         $role->save();
 
         $role->syncPermissions($request->input('permission'));
-
-        return redirect()->route('role.index')
-            ->with('success', 'Role updated successfully');
+        Toastr::success('Sửa vai trò thành công');
+        return redirect()->route('role.index');
     }
 
     public function destroy($id)
     {
         DB::table("roles")->where('id', $id)->delete();
-        return redirect()->route('role.index')
-            ->with('success', 'Role deleted successfully');
+        Toastr::success('Xóa vai trò thành công');
+        return redirect()->route('role.index');
     }
 }
 

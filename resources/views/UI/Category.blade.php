@@ -1,133 +1,66 @@
-@extends('UI.index', ['categories' => $categories])
+@extends('UI.index')
 @section('content')
-    <div class="container">
-        <header class="blog-header py-3">
-            <div class="row flex-nowrap justify-content-between align-items-center">
-                <div class="col-4 pt-1">
-                    <a class="text-muted" href="#">Nhật Trường</a>
+
+
+    <div class="container-fluid pb-4 pt-4 paddding">
+        <div class="container paddding" style="font-family: Arial, Verdana, sans-serif">
+            <div class="row mx-0">
+                <div class="col-md-8 animate-box" data-animate-effect="fadeInLeft">
+                    <div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">{{$categories2->name}}</div>
+                    </div>
+                    @foreach($post as $item)
+                    <div class="row pb-4">
+                        <div class="col-md-5">
+                            <div class="fh5co_hover_news_img">
+                                <div class="fh5co_news_img"><img src="{{$item->image}}" alt=""/></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 animate-box">
+                            <a  href="{{ route('home.show', $item->id) }}" class="fh5co_magna py-2" style="font-size:22px;font-family: Times;text-decoration: none">{{$item->title }}<br/></a> <a  class="fh5co_mini_time py-3"> {{ \Carbon\Carbon::parse($item->created_at)->format('D d/m/Y') }}</a>
+                            <div class="fh5co_consectetur"> {{ $item->sub_title }}
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                    <nav aria-label="Page navigation example">
+                        {{ $post->links('pagination.default') }}
+                    </nav>
                 </div>
-                <div class="col-4 text-center">
-                    <span class="blog-header-logo text-dark" href="#">Tin tức</span>
-                </div>
-                <div class="col-4 d-flex justify-content-end align-items-center">
-                    <a class="text-muted" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="mx-3">
-                            <circle cx="10.5" cy="10.5" r="7.5"></circle>
-                            <line x1="21" y1="21" x2="15.8" y2="15.8"></line>
-                        </svg>
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary" href="#">Đăng kí</a>
+                <div class="col-md-3 " data-animate-effect="fadeInRight">
+                    <div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Chuyên đề</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fh5co_tags_all" style="margin-bottom:50px">
+                        @foreach($thematics as $category)
+                            <a href="{{url('UI/Thematic/'.$category->id)}}" class="fh5co_tagg">{!! $category->name !!}</a>
+                        @endforeach
+                    </div>
+                    <iframe id="tpm_html5-creative-1649739328160" style="width:300px;height:600px;" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" src="https://misc.dantri.com.vn/2022/03/29/1334b1b1/02039730/index.html"></iframe>
+
+                    <div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">Bài viết phổ biến</div>
+                    </div>
+                    @foreach($postViews as $postView)
+                        <div class="row pb-3">
+                            <div class="col-5 align-self-center">
+                                <img src="{{$postView->image}}" alt="img" class="fh5co_most_trading"/>
+                            </div>
+                            <div class="col-7 paddding">
+                                <div class="most_fh5co_treding_font" style="font-weight: bold"><a style="color:black;text-decoration: none" href="{{ route('home.show', $postView->id) }}">{{$postView->title}}</a></div>
+                                <div class="most_fh5co_treding_font_123"> {{ \Carbon\Carbon::parse($postView->created_at)->format('D d/m/Y') }} </div>
+                            </div>
+                        </div>
+                    @endforeach
+
                 </div>
             </div>
-        </header>
 
-        <div class="nav-scroller py-1 mb-2" >
-            <nav class="nav d-flex  danhmuc">
-                @foreach($categories as $category)
-                    <a class="p-2 text-muted" href="#" style="margin-right:30px">{!! $category->name !!}</a>
-                @endforeach
-            </nav>
         </div>
-
-    <main role="main" class="container" style="margin-top:50px;">
-        <div class="row" >
-            <div class="col-md-8 blog-main" >
-                <h1 style="border-bottom: 2px solid black;margin-bottom:40px;" >
-                    Thể thao
-                </h1>
+    </div>
+    </div>
 
 
-                <div id="tintuc">
-                    <img src="https://znews-photo.zadn.vn/w360/Uploaded/neg_etpyole/2022_01_07/vnd.JPG"
-                        style="float: left;margin-right:20px;" height="190px" width="270px">
-                    <div class="blog-post">
-                        <h3 class="blog-post-title"><a href="#" style="color:black;">Tuyển nữ Việt Nam thua Nhật Bản 0-3 tại Asian Cup 2022</a></h3>
-                        <p class="blog-post-meta">20:29 24/1/2022  </p>
-
-                        <p>Các nữ tuyển thủ Việt Nam chơi nỗ lực nhưng không tránh khỏi thất bại trước nhà đương kim vô địch Nhật Bản tối 24/1.</p>
-                        <hr>
-                    </div><!-- /.blog-post -->
-                </div>
-
-                <div id="tintuc">
-                <div class="blog-post">
-                    <img src="https://znews-photo.zadn.vn/w360/Uploaded/yrfjpyvslyr/2022_01_25/lingard.jpg"
-                        style="float: left;margin-right:20px;" height="190px" width="270px">
-                        <h3 class="blog-post-title"><a href="#" style="color:black;">Newcastle sẵn sàng nâng mức giá mượn Lingard</a></h3>
-                    <p class="blog-post-meta">25/1/2022 by <a href="#">Nhật Trường</a></p>
-
-                    <p>Đội chủ sân St James' Park muốn tăng cường sức mạnh cho hàng công bằng cách mượn Jesse Lingard,
-                        người đang thất sủng ở MU.</p>
-                    <hr>
-                </div>
-                </div>
-
-                <div id="tintuc">
-                    <div class="blog-post">
-                        <img src="https://znews-photo.zadn.vn/w360/Uploaded/natmzz/2022_01_23/zd.JPG"
-                            style="float: left;margin-right:20px;" height="190px" width="270px">
-                            <h3 class="blog-post-title"><a href="#" style="color:black;">Real Madrid thoát thua ở phút 90+2 </a></h3>
-                    <p class="blog-post-meta">05:03 24/1/2022</p>
-
-                    <p>Pha lập công của Eder Militao giúp Real hòa Elche 2-2 ở trận đấu thuộc vòng 22 La Liga đêm 23/1 (giờ Hà Nội).</p>
-                    <hr>
-                </div>
-                </div>
-
-                <div id="tintuc">
-                    <div class="blog-post">
-                        <img src="https://znews-photo.zadn.vn/w360/Uploaded/natmzz/2022_01_23/2022_01_23T160533Z_1226576065_UP1EI1N18P84L_RTRMADP_3_SOCCER_ENGLAND_CRY_LIV_REPORT.JPG"
-                            style="float: left;margin-right:20px;" height="190px" width="270px">
-                    <h3 class="blog-post-title"><a href="#" style="color:black;">Liverpool thắng Crystal Palace 3-1</a></h3>
-                    <p class="blog-post-meta">20:47 23/1/2022</p>
-
-                    <p>Thầy trò huấn luyện viên Klopp đánh bại chủ nhà Crystal Palace ở vòng 23 Premier League tối 23/1 (giờ Hà Nội).</p>
-                    <hr>
-                </div>
-                </div>
-                <div id="tintuc">
-                    <div class="blog-post">
-                        <img src="https://znews-photo.zadn.vn/w360/Uploaded/natmzz/2022_01_23/gettyimages_1237901088_594x594.jpg"
-                            style="float: left;margin-right:20px;" height="190px" width="270px">
-                    <h3 class="blog-post-title"><a href="#" style="color:black;">Haaland nối dài chuỗi phong độ thăng hoa</a></h3>
-                    <p class="blog-post-meta">05:35 23/1/2022  </p>
-
-                    <p>Tiền đạo người Na Uy ghi bàn mở tỷ số trong trận thắng 3-2 của Dortmund trước Hoffenheim ở vòng 20 Bundesliga đêm 22/1 (giờ Hà Nội).</p>
-                    <hr>
-                </div>
-                </div>
-
-                <nav class="blog-pagination">
-                    <a class="btn btn-outline-primary" href="#">Tin cũ</a>
-                    <a class="btn btn-outline-secondary disabled" href="#">Tin mới</a>
-                </nav>
-
-            </div><!-- /.blog-main -->
-
-            <aside class="col-md-4 blog-sidebar" style="margin-top: 50px;">
-                <div class="p-3 mb-3 bg-light rounded">
-                    <h4 class="font-italic">Quảng cáo</h4>
-                    <img src="https://img.lovepik.com/free-template/bg/20200819/bg/c7a25ed5a2ad3_405692.png_detail.jpg!wh650" width="90%" height="70%" style="margin-left:5%;margin-top: 20px;">
-                </div>
-
-                <div class="p-3">
-                    <h4 class="font-italic">Liên hệ</h4>
-                    <ol class="list-unstyled">
-                        <li><a href="#">Zalo</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Facebook</a></li>
-                    </ol>
-                </div>
-            </aside><!-- /.blog-sidebar -->
-
-        </div><!-- /.row -->
-
-    </main><!-- /.container -->
-
-    <footer class="blog-footer">
-            <a href="#">Lên đầu trang</a>
-        </p>
-    </footer>
-
+@endsection
